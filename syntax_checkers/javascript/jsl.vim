@@ -32,18 +32,10 @@ endfunction
 function! SyntaxCheckers_javascript_jsl_GetLocList()
     let makeprg = syntastic#makeprg#build({
         \ 'exe': 'jsl',
-        \ 'args': s:ConfFlag() . " -nologo -nofilelisting -nosummary -nocontext -process",
-        \ 'filetype': 'javascript',
-        \ 'subchecker': 'jsl' })
+        \ 'filetype': 'javascript'
+    })
 
-    let errorformat =
-        \ '%W%f(%l): lint warning: %m,'.
-        \ '%-Z%p^,'.
-        \ '%W%f(%l): warning: %m,'.
-        \ '%-Z%p^,'.
-        \ '%E%f(%l): SyntaxError: %m,'.
-        \ '%-Z%p^,'.
-        \ '%-G'
+    let errorformat='%t\ %f\ %*[L]%l:\ %m,' .'%-G.%#'
 
     return SyntasticMake({
         \ 'makeprg': makeprg,
